@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+   <link rel="stylesheet" href="bootstrap.min.css">
+    <title>Whether Application</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        #city{
+          width: 50em;
+          margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="text-center">Weather Application</h2>
+    <h3 class="text-center">Enter country/city name:</h3>
+    <br>
+    <input type="text" class="form-control " id="city">
+    <br>
+
+    <button class="btn btn-warning" id="submit" type="submit">Get whether details</button>
+<div class="details">
+    <!-- <h3 class="temp"></h3> -->
+    <!-- <h2 class="temp1"></h2>
+    <h2 class="temp2"></h2> -->
+</div>
+    <script>
+     document.querySelector('#submit').addEventListener('click', ()=>{
+        var cityName=document.querySelector('#city').value;
+
+fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=cf20bd0283cb38d1432eea26fcd87465`).then((res)=>res.json()).then((data)=>{
+    // var detail="";
+var image="https://openweathermap.org/img/wn/" +data.weather[0].icon+ "@2x.png"
+  var detail=`<h2>Temperature of ${cityName} : ${data.main.temp}</h2> <br> <h2>Weather condition: ${data.weather[0].description}</h2> <br>
+  <img src="${image}" height="200px" width="200px">`;
+
+document.querySelector('.details').innerHTML=detail;
+// document.querySelector('.temp2').innerHTML=`Weather condition: ${data.weather[0].description}`;
+});
+     });
+    </script>
+</body>
+</html>
